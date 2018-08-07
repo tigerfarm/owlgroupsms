@@ -1,22 +1,21 @@
-# Twilio Sync PHP Samples
+# Owl Group SMS Application
 
-Sync components created using these repository's programs:
-````
-Sync Service: name = counters (use the Twilio Console to create)
-   |
-Sync Map: name = counters (create, retrieve, delete)
-   |
-Sync Map item: key name = countera, data = {"counter":  1 } --- Initial counter value = 1
-               (create, retrieve, update, delete)
-````
+Requirements:
 
-For now, use the [Twilio Console](https://www.twilio.com/console/sync/services) to create a Sync Service (no program yet).
-Click the create icon and create:
-````
-Friendly name: counters
-Example:
-Sync service SID: ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-````
+- Twilio account. A free Trial account will work.
+- Node.JS installed to run programs locally on your computer. Note, the Twilio Node.JS Helper Library is required.
+
+Note, it is possible to create a Service Map with an empty name (UniqueName=""). However, you cannot delete it with delete Map program (delMap.php).
+
+## Files
+
+Programs to manage Sync service Map items:
+- [1initDeleteMap.js](1initDeleteMap.js) : Delete a specific Sync Map Item, which deletes all the related Items.
+- [2initCreateMap.js](2initCreateMap.js) : Given a Sync service, create a Map.
+- [4retrieveMaps.js](4retrieveMaps.js) : List Sync Maps.
+- [createMapItem.js](createMapItem.js) : Given a Sync service and a Map, create a Map Item.
+- [updateMapItem.js](listMapItem.js) : Update a specific Sync Map Item.
+- [setvars.sh](setvars.sh) : Set program environment variables.
 
 After creating your Sync Service, create environment variables for use in these repository's programs:
 ````
@@ -34,41 +33,71 @@ Note, you can use the shell script to maintain your variables ([setvars.sh](setv
 Run using: source setvars.sh
 ````
 
-Requirements:
+## Configure Group SMS
 
-- Twilio account. A free Trial account will work.
-- PHP installed to run programs locally on your computer. Note, the Twilio PHP Helper Library is not required.
+Open a Twilio account to manage your Twilio resources:
 
-Note, it is possible to create a Service Map with an empty name (UniqueName=""). However, you cannot delete it with delete Map program (delMap.php).
+````
+Open a Twilio account to manage your Twilio resources:
+https://www.twilio.com
+For Group SMS, you are required you to upgrade your account.
+Search and buy an SMS capable phone number:
+https://www.twilio.com/console/phone-numbers/incoming
+In these steps, I use +12223331234 as the example phone number.
+The Twilio Phone Number is for members to send commands and broadcast messages.
+Twilio Functions runs the Group SMS application. Create a Function:
+https://www.twilio.com/console/runtime/functions/manage
+Click the Create a new Function icon. In the New Function popup, click Blank and click Create. Set:
+Function name: Group SMS
+Set the /path to /groupsms.
+Copy and paste the code from this link: groupSms.js, into the Code text area.
+Click Save.
 
-## Files
 
-Programs to manage Sync service Map items:
-- [listServices.php](listServices.php) : List Sync Services. Note, by default, there is a default service, friendly_name="Default Service".
-- [createMap.php](createMap.php) : Given a Sync service, create a Map.
-- [listMaps.php](listMaps.php) : List Sync Maps.
-- [delMap.php](delMap.php) : Delete a specific Sync Map, which deletes all the related Items.
-- [createMapItem.php](createMapItem.php) : Given a Sync service and a Map, create a Map Item.
-- [listMapItem.php](listMapItem.php) : List a specific Sync Map Item.
-- [listMapItems.php](listMapItems.php) : List Sync Map Items.
-- [updateMapItem.php](listMapItem.php) : Update a specific Sync Map Item.
-- [delMapItem.php](delMapItem.php) : Delete a specific Sync Map Item.
-- [setvars.sh](setvars.sh) : Set program environment variables.
+Create a Messaging Service(Twilio Copilot).
+In a new tab (keep the Function tab open), go to:
+https://www.twilio.com/console/sms/services 
+Click Create new Messaging Service.
+Friendly name: GroupSMS
+Select: Notifications, 2-way
+Click Create.
+Click/enable Process Inbound Messages. For Request Url, enter your Functions URL (PATH).
+   Example: https://about-time-1235.twil.io/groupsms.
+Click Save.
+On the left menu, click Numbers (Programmable SMS/ Messaging Services / GroupSMS / Numbers).
+Click Add an Existing Number.
+Click on your Twilio phone number, example: (222)333-1234.
+Click Add Selected. Your number is now listed.
+````
+Note, the Twilio Copilot Messaging Service has attributes you can set to control the sending of messages. For Group SMS, use the defaults.
 
-API documentation link: [https://www.twilio.com/docs/sync/api/maps](https://www.twilio.com/docs/sync/api/maps)
+````
+Create a Notify Service to broadcast group messages:
+https://www.twilio.com/console/notify/services
+Click the Create new Notify Service icon.
+Set, Friendly name: GroupSMS
+Click Create. The Notify service configuration page is displayed.
+Select your Messaging Service SID: GroupSMS.
+Click Save.
+````
+Keep this tab open because the Notify service SID is used when configuring the Group SMS Twilio Function.
 
-Sync Maps JavaScript SDK documentation: https://www.twilio.com/docs/sync/maps
-Sync tokens: https://www.twilio.com/docs/sync/identity-and-access-tokens
+````
+Create a Sync Service to manage the member data:
+https://www.twilio.com/console/sync/services
+Click the Create a new Sync Service icon.
+Set, Friendly name: GroupSMS
+Click Create.
+````
+Keep this tab open because the Sync service SID is used when configuring the Group SMS Twilio Function.
 
-To do:
-- Create a service.
-- List error checking.
-- Consider a library for: GET and POST, and standard error handling messages (example: createMap.php).
-
-## Implementation
-
-- Create a Sync Service using [Twilio Console](https://www.twilio.com/console/sync/services).
-- Create a Sync map by running it: php createMap.php
-- List the new Sync Map using: php listMaps.php
-
-...
+````
+Configure the Function to use the Sync and Notify services:
+https://www.twilio.com/console/runtime/functions/configure
+Click/Enable ACCOUNT_SID and AUTH_TOKEN.
+   This allows your Functions to use your account’s SID and auth token environment variables.
+Do this for each key-value pair: click the create icon and add the following:
+Key: NOTIFY_SERVICE_SID and value: your_notify_service_SID
+Key: SYNC_SERVICE_SID and value: your_sync_service_SID
+Click Save.
+````
