@@ -5,38 +5,47 @@ After, is documentation for developers.
 
 ## Requirements:
 
-- Twilio account. A free Trial account will work.
+- Twilio account. An upgraded account is required.
 - For developers, Node.JS installed to run the Group SMS development programs locally on your computer.
-Note, the Twilio Node.JS Helper Library is required.
+The Node.JS programs require the [Twilio Node.JS Helper Library](https://www.twilio.com/docs/libraries/node) is required.
 
 ## Configure Group SMS
 
-````
-Open a Twilio account to manage your Twilio resources:
-https://www.twilio.com
-For Group SMS, you are required you to upgrade your account.
+Open a Twilio account to manage your Twilio resources.
+For Group SMS, you are required you to [upgrade your account](https://support.twilio.com/hc/en-us/articles/223183208-Upgrading-to-a-paid-Twilio-Account).
+
+[https://www.twilio.com](https://www.twilio.com)
+
 
 Search and buy an SMS capable phone number:
-https://www.twilio.com/console/phone-numbers/incoming
-In these steps, I use +12223331234 as the example phone number.
-The Twilio Phone Number is for members to send commands and broadcast messages.
 
-Twilio Functions runs the Group SMS application.
-Create a Function:
-https://www.twilio.com/console/runtime/functions/manage
-Click the Create a new Function icon. In the New Function popup, click Blank and click Create. Set:
-Function name: Group SMS
-Set the /path to /groupsms.
-Copy and paste the code from this link: groupSms.js, into the Code text area.
-Click Save.
+[https://www.twilio.com/console/phone-numbers/incoming](https://www.twilio.com/console/phone-numbers/incoming)
+
+The Twilio Phone Number is for members to send commands and broadcast messages.
+In the following steps, I use +12223331234 as the example phone number.
+
+Create a Function. It will run the Group SMS application.
+
+[https://www.twilio.com/console/runtime/functions/manage](https://www.twilio.com/console/runtime/functions/manage)
 ````
+Click the Create a new Function icon.
+In the New Function popup, click Blank and click Create.
+Set the Function name to: Group SMS
+Set the /path to: /groupsms.
+````
+Copy and paste the code from this link: [groupSms.js](groupSms.js), into the Code text area.
+
+Click Save.
+
 Function screen print:
 
 <img src="ScreenPrintFunction.jpg"/>
 ````
 Create a Messaging Service(Twilio Copilot).
 In a new tab (keep the Function tab open), go to:
-https://www.twilio.com/console/sms/services 
+````
+[https://www.twilio.com/console/sms/services](https://www.twilio.com/console/sms/services)
+````
 Click Create new Messaging Service.
 Friendly name: GroupSMS
 Select: Notifications, 2-way
@@ -55,9 +64,10 @@ Messaging Service screen print:
 
 <img src="ScreenPrintMS.jpg"/>
 
-````
 Create a Notify Service to broadcast group messages:
-https://www.twilio.com/console/notify/services
+````
+[https://www.twilio.com/console/notify/services](https://www.twilio.com/console/notify/services)
+````
 Click the Create new Notify Service icon.
 Set, Friendly name: GroupSMS
 Click Create. The Notify service configuration page is displayed.
@@ -69,9 +79,11 @@ Keep this tab open because the Notify service SID is used when configuring the G
 Notify Service screen print:
 
 <img src="ScreenPrintNS.jpg"/>
-````
+
 Create a Sync Service to manage the member data:
-https://www.twilio.com/console/sync/services
+````
+[https://www.twilio.com/console/sync/services](https://www.twilio.com/console/sync/services)
+````
 Click the Create a new Sync Service icon.
 Set, Friendly name: GroupSMS
 Click Create.
@@ -81,9 +93,11 @@ Keep this tab open because the Sync service SID is used when configuring the Gro
 Sync Service screen print:
 
 <img src="ScreenPrintSS.jpg"/>
-````
+
 Configure the Function to use the Sync and Notify services:
-https://www.twilio.com/console/runtime/functions/configure
+
+[https://www.twilio.com/console/runtime/functions/configure](https://www.twilio.com/console/runtime/functions/configure)
+````
 Click/Enable ACCOUNT_SID and AUTH_TOKEN.
    This allows your Functions to use your account’s SID and auth token environment variables.
 Do this for each key-value pair: click the create icon and add the following:
@@ -119,18 +133,18 @@ Programs to manage Sync service Map items:
 
 After creating your Sync Service, create environment variables for use in these repository's programs:
 ````
-ACCOUNT_SID=your_account_SID
-AUTH_TOKEN=your_account_auth_token
-SYNC_SERVICE_SID=your_sync_service_SID
-SYNC_MAP_NAME=counters
-export ACCOUNT_SID
-export AUTH_TOKEN
-export SYNC_SERVICE_SID
-export SYNC_MAP_NAME
+export ACCOUNT_SID=your_account_SID
+export AUTH_TOKEN=your_account_auth_token
+export SYNC_SERVICE_SID=your_sync_service_SID
+export SYNC_MAP_NAME=counters
 ````
-Note, you can use the shell script to maintain your variables ([setvars.sh](setvars.sh)).
+Note, you can use the shell script to maintain your variables: [setvars.sh](setvars.sh). Run:
 ````
-Run using: source setvars.sh
+$ source setvars.sh
+````
+
+Thank you for using Owl Group SMS.
 ````
 Cheers,
 Stacy David
+````
