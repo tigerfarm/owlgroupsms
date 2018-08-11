@@ -40,6 +40,7 @@ Click Save.
 Function screen print:
 
 <img src="ScreenPrintFunction.jpg"/>
+
 ````
 Create a Messaging Service(Twilio Copilot).
 In a new tab (keep the Function tab open), go to:
