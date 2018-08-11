@@ -82,7 +82,7 @@ Notify Service screen print:
 <img src="ScreenPrintNS.jpg"/>
 
 Create a Sync Service to manage the member data:
-````
+
 [https://www.twilio.com/console/sync/services](https://www.twilio.com/console/sync/services)
 ````
 Click the Create a new Sync Service icon.
