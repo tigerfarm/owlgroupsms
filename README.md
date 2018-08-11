@@ -66,7 +66,7 @@ Messaging Service screen print:
 <img src="ScreenPrintMS.jpg"/>
 
 Create a Notify Service to broadcast group messages:
-````
+
 [https://www.twilio.com/console/notify/services](https://www.twilio.com/console/notify/services)
 ````
 Click the Create new Notify Service icon.
