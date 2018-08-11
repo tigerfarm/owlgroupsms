@@ -11,20 +11,19 @@ The Node.JS programs require the [Twilio Node.JS Helper Library](https://www.twi
 
 ## Configure Group SMS
 
-Open a Twilio account to manage your Twilio resources.
+1. Open a Twilio account to manage your Twilio resources.
 For Group SMS, you are required you to [upgrade your account](https://support.twilio.com/hc/en-us/articles/223183208-Upgrading-to-a-paid-Twilio-Account).
 
 [https://www.twilio.com](https://www.twilio.com)
 
-
-Search and buy an SMS capable phone number:
+2. Search and buy an SMS capable phone number:
 
 [https://www.twilio.com/console/phone-numbers/incoming](https://www.twilio.com/console/phone-numbers/incoming)
 
 The Twilio Phone Number is for members to send commands and broadcast messages.
 In the following steps, I use +12223331234 as the example phone number.
 
-Create a Function. It will run the Group SMS application.
+3. Create a Function. It will run the Group SMS application.
 
 [https://www.twilio.com/console/runtime/functions/manage](https://www.twilio.com/console/runtime/functions/manage)
 ````
@@ -41,10 +40,9 @@ Function screen print:
 
 <img src="ScreenPrintFunction.jpg"/>
 
-````
-Create a Messaging Service(Twilio Copilot).
+4. Create a Messaging Service(Twilio Copilot).
 In a new tab (keep the Function tab open), go to:
-````
+
 [https://www.twilio.com/console/sms/services](https://www.twilio.com/console/sms/services)
 ````
 Click Create new Messaging Service.
@@ -65,7 +63,7 @@ Messaging Service screen print:
 
 <img src="ScreenPrintMS.jpg"/>
 
-Create a Notify Service to broadcast group messages:
+5. Create a Notify Service to broadcast group messages:
 
 [https://www.twilio.com/console/notify/services](https://www.twilio.com/console/notify/services)
 ````
@@ -81,7 +79,7 @@ Notify Service screen print:
 
 <img src="ScreenPrintNS.jpg"/>
 
-Create a Sync Service to manage the member data:
+6. Create a Sync Service to manage the member data:
 
 [https://www.twilio.com/console/sync/services](https://www.twilio.com/console/sync/services)
 ````
@@ -95,7 +93,7 @@ Sync Service screen print:
 
 <img src="ScreenPrintSS.jpg"/>
 
-Configure the Function to use the Sync and Notify services:
+7. Configure the Function to use the Sync and Notify services:
 
 [https://www.twilio.com/console/runtime/functions/configure](https://www.twilio.com/console/runtime/functions/configure)
 ````
@@ -132,7 +130,7 @@ Programs to manage Sync service Map items:
 - [echoVars.js](echoVars.js)             : Echo environment variables that are used in these Node.JS programs.
 - [setvars.sh](setvars.sh)               : Set program environment variables.
 
-After creating your Sync Service, create environment variables for use in these repository's programs:
+After creating your Sync Service, create environment variables for use in the above listed programs:
 ````
 export ACCOUNT_SID=your_account_SID
 export AUTH_TOKEN=your_account_auth_token
