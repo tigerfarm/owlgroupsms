@@ -3,6 +3,9 @@
 This is the documented steps to configure the Group SMS application using the Twilio Console.
 After, is documentation for developers.
 
+This application setup steps, and program, are variations of the Broadcast setup in the blog:
+[How To: Set Up SMS Broadcasts in Five Minutes](https://www.twilio.com/blog/2017/12/how-to-set-up-sms-broadcasts-in-five-minutes.html)
+
 ## Requirements:
 
 - Twilio account. An upgraded account is required.
